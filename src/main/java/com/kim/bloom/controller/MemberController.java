@@ -1,8 +1,11 @@
 package com.kim.bloom.controller;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +24,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberSerivice memberSerivice;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String loginGet() {
@@ -48,8 +54,9 @@ public class MemberController {
 		return "login";
 	}
 	
+	/* 아이디 중복 검사를 실행하는 메서드 */
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
-	@ResponseBody
+	@ResponseBody /* 반환값 그대로 클라이언트한테 return 하고 싶은 경우 @ResponseBody를 사용 */
 	public String memberIdChkPost(String memberId) throws Exception{
 		logger.info(" memberIdChk() 진입");
 		
@@ -63,6 +70,27 @@ public class MemberController {
 			return "success";
 		}
 		
+	}
+	
+	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public void mailCheckGet(String email) throws Exception{
+		
+		logger.info("이메일 데이터 전송 확인");
+		logger.info("인증번호 : "+email);
+		
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111; /* 111111-999999까지의 범위 */
+		logger.info("인증번호 : "+checkNum);
+		
+	}
+	
+	public void sendMailTest() throws Exception {
+		
+		String setFrom = "ksk8554@naver.com";
+		String toMail = "ksumin9427@gamil.com";
+		String subject = "테스트 메일";
+		String content = "테스트";
 	}
 	
 }

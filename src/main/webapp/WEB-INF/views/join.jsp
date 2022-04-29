@@ -58,8 +58,8 @@
 					<input class="mail_input" name="memberMail">
 				</div>
 				<div class="mail_check_wrap">
-					<div class="mail_check_input_box">
-						<input class="mail_check_input">
+					<div class="mail_check_input_box" id="mail_check_input_box_false">
+						<input class="mail_check_input" disabled="disabled">
 					</div>
 					<div class="mail_check_button">
 						<span>인증번호 전송</span>
@@ -118,10 +118,30 @@
 			$.ajax({ /* 사용자가 지정한 url 경로에 파일의 데이터를 전송하고 입력한 url 경로 파일로부터 요청한 데이터를 부른다  */
 				type : "post", /* 전송 방식  */
 				url : "/member/memberIdChk", /* 전송페이지  */
-				data : data /* 전송할 데이터, GET 요청시엔 비운다  */
+				data : data, /* 전송할 데이터, GET 요청시엔 비운다  */
+				success : function(result){ /* 전송에 성공하면 실행될 코드 */
+					
+					if (result != "fail") {
+						$(".id_input_re_1").css("display", "inline-block");
+						$(".id_input_re_2").css("display", "none");
+					} else {
+						$(".id_input_re_1").css("display", "none");
+						$(".id_input_re_2").css("display", "inline-block");
+						
+					}
+				}
 			});
 			
 		});
+		
+	$(".mail_check_button").click(function(){
+		var email = $(".mail_input").val();
+		
+		$.ajax({
+			type : "get", /* url을 통해 데이터를 보낼 수 있도록 get방식으로  */
+			url : "mailCheck?email=" + email
+		});
+	});
 		
 		
 	</script>

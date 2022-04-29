@@ -19,16 +19,25 @@ public class MemberMapperTest {
 	@Test
 	public void memberJoin() throws Exception {
 
-		MemberVO member = new MemberVO();
-
-		member.setMemberId("test");
-		member.setMemberPw("test");
-		member.setMemberName("test");
-		member.setMemberMail("test");
-		member.setMemberAddr1("test");
-		member.setMemberAddr2("test");
-		member.setMemberAddr3("test");
-
-		memberMapper.memberJoin(member);
+		
+		  MemberVO member = new MemberVO();
+		  
+		  member.setMemberId("test0"); member.setMemberPw("test0");
+		  member.setMemberName("test0"); member.setMemberMail("test");
+		  member.setMemberAddr1("test0"); member.setMemberAddr2("test0");
+		  member.setMemberAddr3("test0");
+		  
+		  memberMapper.memberJoin(member);
+		 	
 	}
+	
+//	@Test
+//	public void memberIdChk() throws Exception {
+//		String id = "admin";
+//		String id2 = "test123";
+//		memberMapper.idCheck(id);
+//		memberMapper.idCheck(id2);
+//	
+//	}
+		
 }

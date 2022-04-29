@@ -5,12 +5,12 @@
   <mapper namespace="com.kim.bloom.mapper.MemberMapper">
   
 	<insert id="memberJoin"> <!-- id는 쿼리문을 호출하는 메서드 이름을 적는 곳 -->
-		INSERT INTO bloom_member 
-		VALUES(#{memberId},#{memberPw},#{memberName},#{memberMail},
+		insert into bloom_member 
+		values(#{memberId},#{memberPw},#{memberName},#{memberMail},
 		#{memberAddr1},#{memberAddr2},#{memberAddr3}, 0, now(), 100000, 5000);
 	</insert>
 	
-	<select id="idCheck">
+	<select id="idCheck" resultType="int">
 		select count(*) from bloom_member where memberId = #{memberId}
 	</select>
 	
