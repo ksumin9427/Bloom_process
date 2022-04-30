@@ -65,6 +65,7 @@
 						<span>인증번호 전송</span>
 					</div>
 					<div class="clearfix"></div>
+					<span id="mail_check_input_box_warn"></span>
 				</div>
 			</div>
 			
@@ -101,6 +102,9 @@
 	</div>
 	
 	<script>
+		var code = "";
+	
+	
 		$(function(){ 
 			$(".join_button").click(function() {
 				$("#join_form").attr("action", "/member/join"); /* 클릭을 해서 해당 url로 보내게 만든다 */
@@ -136,11 +140,35 @@
 		
 	$(".mail_check_button").click(function(){
 		var email = $(".mail_input").val();
+		var boxWrap = $(".mail_check_input_box");
+		var checkBox = $(".mail_check_input");
 		
 		$.ajax({
 			type : "get", /* url을 통해 데이터를 보낼 수 있도록 get방식으로  */
-			url : "mailCheck?email=" + email
+			url : "mailCheck?email=" + email,
+			success : function(data) {
+				/* attr()은 선택한 요소에 새 속성을 생성하거나 기존의 속성의 변경하거나 속성값을 가져올 때 사용 */
+				checkBox.attr("disabled", false); /* success가 되면 인증번호 입력칸에 입력이 가능하도록 한다 */ 
+				boxWrap.attr("id","mail_check_input_box_true"); /* success가 되면 id값을 변경시켜서 색상을 변경시킨다 */
+				code = data; /*받은 응답 데이터를 code에 넣는다  */
+			}		
 		});
+	});
+	
+	$(".mail_check_input").blur(function(){ /* 인증번호를 비교하기 위한 메서드 */
+		var inputCode = $(".mail_check_input").val(); /* 입력된 코드 */
+		var checkResult = $("#mail_check_input_box_warn"); /* 비교한 결과 */
+		
+		console.log("코드값: "+code+" / inputCode값: "+inputCode)
+		
+		if (inputCode == code) {
+			checkResult.html("인증번호가 일치합니다."); /* html()은 선택한 요소의 하위요소를 가져와서 문자열로 반환한다 */
+			checkResult.attr("class","correct");
+		} else {
+			checkResult.html("인증번호를 다시 확인해주세요.");
+			checkResult.attr("class","incorrect")
+		}
+		
 	});
 		
 		

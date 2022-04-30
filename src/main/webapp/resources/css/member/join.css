@@ -268,3 +268,9 @@
 #mail_check_input_box_true{
     background-color:white;
 }
+.correct{
+	color: green;
+}
+.incorrect{
+	color: red;
+}
