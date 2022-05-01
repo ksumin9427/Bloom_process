@@ -59,7 +59,7 @@ public class MemberController {
 	
 	/* 아이디 중복 검사를 실행하는 메서드 */
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
-	@ResponseBody /* 반환값 그대로 클라이언트한테 return 하고 싶은 경우 @ResponseBody를 사용 */
+	@ResponseBody /* 자바 객체를 HTTP 요청의 body 내용으로 매핑하는 역할 */
 	public String memberIdChkPost(String memberId) throws Exception{
 		logger.info(" memberIdChk() 진입");
 		
@@ -88,8 +88,8 @@ public class MemberController {
 		
 		String setFrom = "ksumin9427@gmail.com";
 		String toMail = email;
-		String title = "회원가입 인증 이메일 입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다."
+		String title = "Bloom 회원가입 인증 이메일 입니다.";
+		String content = "Bloom을 방문해주셔서 감사합니다."
 					+"<br><br>"
 					+"인증번호는 "+checkNum+" 입니다."
 					+"<br>"
@@ -97,7 +97,6 @@ public class MemberController {
 		
 		/* 이메일 전송을 위한 코드 */
 		  try {
-	            
 	            MimeMessage message = mailSender.createMimeMessage();
 	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 	            helper.setFrom(setFrom);
@@ -109,7 +108,7 @@ public class MemberController {
 	        }catch(Exception e) {
 	            e.printStackTrace();
 	        }
-		  
+		/* ajax를 통한 요청으로 뷰로 데이터를 반환할 때 string 타입만 가능하다 */
 		  String num = Integer.toString(checkNum);
 		  
 		  return num;
