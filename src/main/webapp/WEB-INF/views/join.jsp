@@ -152,7 +152,32 @@
 					$(".final_pwck_ck").css("display", "none");
 					pwCkCheck = true;
 				}
-				
+				if(name == ""){
+					$(".final_name_ck").css("display", "block");
+					nameCheck = false;
+				} else {
+					$(".final_name_ck").css("display", "none");
+					nameCheck = true;
+				}
+				if(mail == ""){
+					$(".final_mail_ck").css("display", "block");
+					mailCheck = false;
+				} else {
+					$(".final_mail_ck").css("display", "none");
+					mailCheck = true;
+				}
+				if(addr == ""){
+					$(".final_addr_ck").css("display", "block");
+					addrCheck = false;
+				} else {
+					$(".final_addr_ck").css("display", "none");
+					addrCheck = true;
+				}
+				if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck ){
+					 $("#join_form").attr("action", "/member/join");
+					 $("#join_form").submit();
+		        }
+				return false;
 			});
 		});
 		
@@ -209,9 +234,11 @@
 		if (inputCode == code) {
 			checkResult.html("인증번호가 일치합니다."); /* html()은 선택한 요소의 하위요소를 가져와서 문자열로 반환한다 */
 			checkResult.attr("class","correct");
+			mailNumCheck = true;
 		} else {
 			checkResult.html("인증번호를 다시 확인해주세요.");
 			checkResult.attr("class","incorrect")
+			mailNumCheck = false;
 		}
 		
 	});
